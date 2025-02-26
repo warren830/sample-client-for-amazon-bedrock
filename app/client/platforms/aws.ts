@@ -294,6 +294,9 @@ export class ClaudeApi implements LLMApi {
     if (requestPayload.reasoning_config?.type === "enabled") {
       requestPayload.top_p = undefined
       requestPayload.temperature = 1
+      requestPayload.reasoning_config.budget_tokens = Math.max(1024, 
+        Math.min(modelConfig.reasoning_config.budget_tokens, 
+          modelConfig.max_tokens - 1))
     }
     return requestPayload;
   }
